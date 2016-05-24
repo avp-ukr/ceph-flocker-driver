@@ -146,8 +146,7 @@ class CephRBDBlockDeviceAPI(object):
         """
         self._check_exists(blockdevice_id)
         output = self._check_output(
-            [b"rbd", b"status", b'{}/{}'.format(self._pool, blockdevice_id)]
-        )
+            [b"rbd", b"status", b'{}/{}'.format(self._pool, blockdevice_id)])
         return output.strip() != "Watchers: none"
 
     def allocation_unit(self):
@@ -222,8 +221,8 @@ class CephRBDBlockDeviceAPI(object):
             # TODO log this.
             return
 
-        self._check_output([
-            b"rbd", b"map", b'{}/{}'.format(self._pool, blockdevice_id))
+        self._check_output(
+            [b"rbd", b"map", b'{}/{}'.format(self._pool, blockdevice_id)])
 
         rbd_image = rbd.Image(self._ioctx, _rbd_blockdevice_id(blockdevice_id))
         size = int(rbd_image.stat()["size"])
@@ -247,8 +246,8 @@ class CephRBDBlockDeviceAPI(object):
         """
         self._check_exists(blockdevice_id)
         device_path = self.get_device_path(blockdevice_id).path
-        self._check_output([
-            b"rbd", b"unmap", device_path])
+        self._check_output(
+            [b"rbd", b"unmap", device_path])
 
     def list_volumes(self):
         """
